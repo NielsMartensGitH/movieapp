@@ -15,10 +15,12 @@ use App\Http\Controllers\MovieController;
 */
 
 Route::get('/', [MovieController::class, 'index'])->name('home');
+Route::post('/', [MovieController::class, 'add_favourite'])->name('favourite');
 Route::post('/search', [MovieController::class, 'find_movies'])->name('search');
 
 Route::middleware(['auth'])->group(function() {
-    Route::get('/favourites', [MovieController::class, 'show'])->name('favourites');
+    Route::get('/favourites', [MovieController::class, 'show_favourites'])->name('favourites');
+    
 });
 
 require __DIR__.'/auth.php';
