@@ -31,7 +31,9 @@
                                                 <h1 class="card-title">{{$movie->Title}}<span> ({{$movie->Year}})</span></h1>
                                                 <small>{{$movie->Plot}}</small>
                                             </div>
+                                            @if (Auth::check())
                                             <div><i class="far fa-heart fa-xl"></i></div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
