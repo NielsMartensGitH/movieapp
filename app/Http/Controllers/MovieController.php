@@ -55,7 +55,7 @@ class MovieController extends Controller
             'Poster' => 'required'
         ]);
 
-        FavouriteMovie::create($storeMovie);
+        FavouriteMovie::firstOrCreate($storeMovie);
 
         return redirect('/')->with('message', 'Movie Saved as Favourite');
     }
