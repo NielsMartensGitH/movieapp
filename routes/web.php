@@ -15,6 +15,7 @@ use App\Http\Controllers\MovieController;
 */
 
 Route::get('/', [MovieController::class, 'index'])->name('home');
+Route::post('/search', [MovieController::class, 'find_movies'])->name('search');
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/favourites', [MovieController::class, 'show'])->name('favourites');
