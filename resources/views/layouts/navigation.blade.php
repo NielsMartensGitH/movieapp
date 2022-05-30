@@ -16,14 +16,14 @@
                     <x-nav-link :href="route('home')" :active="request()->routeIs('dashboard')">
                         {{ __('Homepage') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('favourites')" :active="request()->routeIs('favourites')">
+                        {{ __('Favourites') }}
+                    </x-nav-link>
                     <x-nav-link>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit">{{__('Logout') }}</button>
                             </form>
-                    </x-nav-link>
-                    <x-nav-link :href="route('favourites')" :active="request()->routeIs('favourites')">
-                        {{ __('Favourites') }}
                     </x-nav-link>
                     @else
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">

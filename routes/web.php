@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\MovieController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,18 +14,10 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
-
+Route::get('/', [MovieController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function() {
-    Route::get('/account', [UserController::class, 'index'])->name('dashboard');
-    Route::get('/favourites', [UserController::class, 'show'])->name('favourites');
+    Route::get('/favourites', [MovieController::class, 'show'])->name('favourites');
 });
 
 require __DIR__.'/auth.php';
