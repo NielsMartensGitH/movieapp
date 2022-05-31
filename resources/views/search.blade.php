@@ -16,7 +16,7 @@
                 @method('POST')
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
-                    <input type="text" class="form-control" placeholder="search movie" name="searchvalue">
+                    <input type="text" class="form-control" placeholder="search movie (e.g. star wars)" name="searchvalue">
                     <button type="submit" class="btn btn-dark">Search</button>
                   </div>
             </form>

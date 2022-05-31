@@ -77,6 +77,22 @@ class MovieController extends Controller
 
     }
 
+    public function random_movies() {
+
+        $movies_array = array();
+        while(count($movies_array) <= 10) {
+            $random_id = 'tt'.rand(1917588, 7999980);
+            $response = Http::get('https://www.omdbapi.com/?i='.$random_id.'&type=movie&apikey='. env('API_KEY'));
+            $movie_fetch = json_decode($response->body());
+            if (isset($movie_fetch->Title)) {
+                $movies_array[] = $movie_fetch;
+            }
+        }
+
+        return view('random', compact('movies_array'));
+
+    }
+
     public function show_favourites() {
 
         $favourite_movies = FavouriteMovie::all();
