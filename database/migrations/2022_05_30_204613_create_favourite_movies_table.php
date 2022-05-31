@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('Year');
             $table->string('Poster');
             $table->text('Plot');
+            $table->string('ImdbID');
             $table->timestamps();
         });
     }

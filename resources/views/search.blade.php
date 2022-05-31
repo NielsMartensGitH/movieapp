@@ -16,7 +16,7 @@
                 @method('POST')
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-magnifying-glass"></i></span>
-                    <input type="text" class="form-control" placeholder="search movie" name="movie">
+                    <input type="text" class="form-control" placeholder="search movie" name="searchvalue">
                     <button type="submit" class="btn btn-dark">Search</button>
                   </div>
             </form>
@@ -43,9 +43,15 @@
                                                 <input type="hidden" name="Year" value="{{ $movie->Year}}">
                                                 <input type="hidden" name="Title" value="{{$movie->Title}}">
                                                 <input type="hidden" name="Poster" value="{{$movie->Poster}}">
-                                                <input type="hidden" name="imdbID" value="{{$movie->imdbID}}">
+                                                <input type="hidden" name="ImdbID" value="{{$movie->imdbID}}">
                                                 <input type="hidden" name="searchvalue" value="{{$search_value}}">
-                                                <button type="submit" class="hover:text-gray-500 bg-white"><i class="far fa-heart fa-xl"></i></button>
+                                                <button type="submit" class="hover:text-gray-500 bg-white">
+                                                    @if(in_array($movie->imdbID, $favourite_ids))
+                                                        <i class="fas fa-heart"></i>
+                                                    @else
+                                                        <i class="far fa-heart fa-xl"></i>
+                                                    @endif
+                                                </button>
                                             </form>
                                             @endif
                                         </div>

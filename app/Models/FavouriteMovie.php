@@ -9,5 +9,5 @@ class FavouriteMovie extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['Plot', 'Year', 'Title', 'Poster'];
+    protected $fillable = ['Plot', 'Year', 'Title', 'Poster', 'ImdbID'];
 }

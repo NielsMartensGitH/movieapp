@@ -16,26 +16,41 @@ class MovieController extends Controller
         $movie_fetch = json_decode($response->body());
 
         $movies = array();
-        $movie_list = $movie_fetch->Search;
-        foreach($movie_list as $movie) {
+        $favourite_ids = array();
+        $favourite_movies = FavouriteMovie::all();
+
+        foreach ($favourite_movies as $favourite_movie) {
+            $favourite_ids[] = $favourite_movie->ImdbID;
+        }
+
+        $movie_list = $movie_fetch->Search ?? null;;
+
+        foreach ($movie_list as $movie) {
             $details = Http::get('https://www.omdbapi.com/?i='.$movie->imdbID.'&apikey='.env('API_KEY'));
             $movies[] = json_decode($details->body());
         }
 
-
-
-        return view('account', compact('movies', 'search_value'));
+        return view('account', compact('movies', 'search_value', 'favourite_ids'));
     }
 
     public function find_movies(Request $request) {
 
-        $search_value = $request->input('movie');
+        $search_value = $request->input('searchvalue');
 
         $response = Http::get('https://www.omdbapi.com/?s='.$search_value.'&apikey='. env('API_KEY'));
         $movie_fetch = json_decode($response->body());
 
         $movies = array();
+
+        $favourite_ids = array();
+        $favourite_movies = FavouriteMovie::all();
+
+        foreach ($favourite_movies as $favourite_movie) {
+            $favourite_ids[] = $favourite_movie->ImdbID;
+        }
+
         $movie_list = $movie_fetch->Search ?? null;
+
         if($movie_list) {
             foreach($movie_list as $movie) {
                 $details = Http::get('https://www.omdbapi.com/?i='.$movie->imdbID.'&apikey='.env('API_KEY'));
@@ -43,7 +58,7 @@ class MovieController extends Controller
             }
         }
 
-        return view('search', compact('movies', 'search_value'));
+        return view('search', compact('movies', 'search_value', 'favourite_ids'));
     }
 
     public function add_favourite(Request $request)
@@ -52,15 +67,20 @@ class MovieController extends Controller
             'Plot' => 'required',
             'Year' => 'required',
             'Title' => 'required',
-            'Poster' => 'required'
+            'Poster' => 'required',
+            'ImdbID' => 'required'
         ]);
 
         FavouriteMovie::firstOrCreate($storeMovie);
 
-        return redirect('/')->with('message', 'Movie Saved as Favourite');
+        return $this->find_movies($request);
+
     }
 
     public function show_favourites() {
-        return view('favourites');
+
+        $favourite_movies = FavouriteMovie::all();
+
+        return view('favourites', compact('favourite_movies'));
     }
 }

@@ -20,7 +20,7 @@ Route::post('/search', [MovieController::class, 'find_movies'])->name('search');
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/favourites', [MovieController::class, 'show_favourites'])->name('favourites');
-    
+
 });
 
 require __DIR__.'/auth.php';
